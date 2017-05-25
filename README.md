@@ -1,7 +1,11 @@
-## Colibri-ui
+# Colibri-ui
+[![Build Status](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/alfa-laboratory/colibri-ui/badge.svg?branch=master)](https://coveralls.io/github/alfa-laboratory/colibri-ui?branch=master)
+[![Download](https://api.bintray.com/packages/alfa-laboratory/maven-releases/colibri-ui/images/download.svg) ](https://bintray.com/alfa-laboratory/maven-releases/colibri-ui/_latestVersion)
+
 Библиотека для автоматизации ui-тестирования мобильных приложений
 
-## Зачем мы это сделали?
+## Для чего мы это сделали?
 Решение создано для упрощения написания сценариев ui-тестов для мобильных приложений, для сохранения единообразия подходов к описанию процессов в едином стиле 
 
 ## Папки проекта:
