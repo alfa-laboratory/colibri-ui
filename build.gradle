@@ -1,0 +1,117 @@
+group 'ru.colibri'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "ru.d10xa:gradle-allure-plugin:0.5.3"
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.9'
+        classpath 'com.netflix.nebula:nebula-release-plugin:4.1.0'
+        classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
+        classpath 'com.netflix.nebula:nebula-project-plugin:3.3.0'
+    } 
+}
+
+apply plugin: 'findbugs'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'base'
+apply plugin: 'java'
+apply plugin: 'ru.d10xa.allure'
+
+apply plugin: 'distribution'
+apply plugin: 'nebula.release'
+apply plugin: 'nebula.project'
+apply plugin: 'nebula.maven-publish'
+apply from: 'loadSettings.gradle'
+
+repositories {
+    maven {
+        url  "http://dl.bintray.com/alfa-laboratory/maven-releases"
+    }
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.10"
+    compile "io.appium:java-client:5.0.0-BETA8"
+    compile "org.jbehave:jbehave-core:4.0.5"
+    compile "com.opencsv:opencsv:3.8"
+    compile "org.seleniumhq.selenium:selenium-java:2.53.1"
+    compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.4.23"
+    compile "org.codehaus.groovy:groovy-all:2.4.5"
+    compile "org.slf4j:slf4j-api:1.7.25"
+    testCompile "org.springframework:spring-test:4.3.2.RELEASE"
+    compile "org.jbehave:jbehave-spring:4.1"
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-all:1.10.19"
+    testCompile "de.codecentric:jbehave-junit-runner:1.2.0"
+}
+
+loadSettings()
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+ext {
+    bintrayUserName = (project.hasProperty('BINTRAY_USERNAME') ? project.findProperty('BINTRAY_USERNAME') : System.getenv()['BINTRAY_USERNAME'])
+    bintrayPassword = (project.hasProperty('BINTRAY_PASSWORD') ? project.findProperty('BINTRAY_PASSWORD') : System.getenv()['BINTRAY_PASSWORD'])
+    bintrayRepository = (project.hasProperty('BINTRAY_REPOSITORY') ? project.findProperty('BINTRAY_REPOSITORY') : System.getenv()['BINTRAY_REPOSITORY'])
+
+}
+
+bintray {
+    user = bintrayUserName
+    key = bintrayPassword
+
+    println(user)
+    println(key)
+
+
+    publications = ['nebula']
+    dryRun = false
+    publish = true
+    pkg {
+        userOrg = 'alfa-laboratory'
+        repo='maven-releases'
+        name = 'colibri-ui'
+        desc = project.description
+        websiteUrl = 'https://github.com/alfa-laboratory/colibri-ui'
+        issueTrackerUrl = 'https://github.com/alfa-laboratory/colibri-ui'
+        vcsUrl = 'https://github.com/alfa-laboratory/colibri-ui'
+        licenses = ['Apache-2.0']
+        labels = ['gradle', 'nebula']
+        publicDownloadNumbers = true
+        attributes = [:]
+        version {
+            name = project.version
+            vcsTag = project.version
+            attributes = [:]
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
+
+bintrayUpload.onlyIf { !project.version.toString().toUpperCase().endsWith("-SNAPSHOT") }
