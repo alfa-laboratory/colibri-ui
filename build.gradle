@@ -11,10 +11,13 @@ buildscript {
         classpath 'com.netflix.nebula:nebula-release-plugin:4.1.0'
         classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
         classpath 'com.netflix.nebula:nebula-project-plugin:3.3.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3'
     } 
 }
 
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'base'
 apply plugin: 'java'
@@ -83,10 +86,6 @@ bintray {
     user = bintrayUserName
     key = bintrayPassword
 
-    println(user)
-    println(key)
-
-
     publications = ['nebula']
     dryRun = false
     publish = true
@@ -114,4 +113,12 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.3'
 }
 
-bintrayUpload.onlyIf { !project.version.toString().toUpperCase().endsWith("-SNAPSHOT") }
+bintrayUpload.onlyIf { !project.version.toString().toUpperCase().endsWith("-SNAPSHOT") && !project.version.toString().toUpperCase().contains("-DEV") }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
