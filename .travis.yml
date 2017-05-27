@@ -4,11 +4,17 @@ jdk:
 - oraclejdk8
 install: true
 before_install:
-- test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_45a1e02b23ba_key -iv $encrypted_45a1e02b23ba_iv -in gradle.properties.enc -out gradle.properties -d || true
-script: ./gradle/buildViaTravis.sh
+- test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_45a1e02b23ba_key
+  -iv $encrypted_45a1e02b23ba_iv -in gradle.properties.enc -out gradle.properties
+  -d || true
+script: "./gradle/buildViaTravis.sh"
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 after_success:
-- ./gradlew jacocoTestReport coveralls
+- "./gradlew jacocoTestReport coveralls"
+notifications:
+  slack:
+    secure: BCYkMKwiw5+Hg6ZQkBF1TY0esGkzWNXTabEBSmKA2igI3qwnCmPjBvof6NI0B+V61NshdMnYF+1aNJMCAtWHaNFbe+O6+WQ6T1LzhIR5KYETOIBOEzGUrkHp34Z91nODWfANlu23Qzhc53QWwnixD64K/xRd+cNkitPTnXk7LJe074u0q6ERkgXU8Uxs6CBkgxEf6LJ4Bq4NiVWseE7AMO8xam4a9UYnqnnD28pRUivQ25xLnEGxKlg4+lEor3ZdLuoXrLTiPVY58MxSzfQ6ef74CAI6RL7HUf2iCtZDQd0cldB8rSh0wjwOUG84+UMLmKRNAxoEsbV27UGwGnMl1crcZUgBOogQ7QPNZtyQ9BzSpdC/c2jdPTrY9T5eSKMEVzurSdMy3LOdhSiaQy5R03F1zBuEMntpY77BxNV0tNOrZpBUH1653uIfqbAMKFkdWB0ghumaYwLVGac8XHheUIDiCohPPUCMX5BHbKvh07+cvjwMqMex6Qe3sOuKpGKwNkVpVS9qa7v0oRVwSNhv0U6SvP869hSdjKGDPNFvvfw2J8v1j3xglW31+P9XDwPc8+EgEiIJh+2fdG1CU0k8Lh4HhKexO6KvHN0HKFdkZVPNlr0IFb/9joZu60bCzSz77nqPuQAhTurs060oUE0I9ALW57GdX898ixLhB75HA4s=
+    on_success: always
