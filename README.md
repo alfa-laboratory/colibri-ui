@@ -1,7 +1,9 @@
 # Colibri-ui
-[![Build Status](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)
+[![Build Status](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)](https://travis-ci.org/alfa-laboratory/colibri-ui)
 [![Coverage Status](https://coveralls.io/repos/github/alfa-laboratory/colibri-ui/badge.svg?branch=master)](https://coveralls.io/github/alfa-laboratory/colibri-ui?branch=master)
 [![Download](https://api.bintray.com/packages/alfa-laboratory/maven-releases/colibri-ui/images/download.svg) ](https://bintray.com/alfa-laboratory/maven-releases/colibri-ui/_latestVersion)
+
+[![Slack Chat](https://img.shields.io/badge/Chat-Slack-ff69b4.svg "Join us. Anyone is welcome!")](https://colibri-ui-community.slack.com/shared_invite/MTg3Mzk3NTI2OTQ4LTE0OTU2MzU5NDItZDc1MGFkOWY4Yw) ⇦ Join us!
 
 Библиотека для автоматизации ui-тестирования мобильных приложений
 

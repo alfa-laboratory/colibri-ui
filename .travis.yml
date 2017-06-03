@@ -12,10 +12,10 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+after_success:
+- "./gradlew jacocoTestReport coveralls"
 notifications:
   slack:
     rooms:
-     - secure: VCiBIEs9fA2ZVXZW/1TwhteNbylWVBsSAdGMMMdjh9oUjwFv6zUu+cNZK1RfY26cYfvhwuHr/l10yqM2hy0Z5an/+rSaQD8xdAs51K0H0kwmIDOXJVAX4XDg6Ep6GTcM8VAD8/7iOIHUqtmOIkC5C4sULw+dtbpauTWiKjHWZxp9RJJNa1RD1nfkF+IYKkxGN8lvllad/p46wcI87tPTRZLSGItYFu8ujmkHZ6RfHNDSFQ8Cuc0Fh8TxgBB+MsKPKQdc4b8I+AH1hQ7ew193OC+19d3kSRM0/1zlwK50EZe5rb7ry+aLs09DstN5HkpCuF7+fIbnhuiFjzyZ8D4afsYAEUUBn1nxkjzwX1iU8YWCVV7sH+dIlwWn44v4HOyUVpYw1AH1Yne5gdZxT/e8F8nWWh7aF3WEZ8bHP82c9PgoZrCh6AUeA51st+NWbZAZQb/lRDmvyFOJXccq4un9m8ZCcAZWhK7rQYdev9K8igdjgzsRkPgYi0DMeyKAHEyiMNcdLDxe8U40e94h+3tQzY8uW68/W9EahQPJYv4Y500rgYHEzVEuE7ctqv0d2spKwrd0A73OheToHT01G/SDQaypB4qbqH/smTHhp3NxZAXn8CQ2+XWXyzUj+0DCrq173qVMrW54JHNgu/gWLkRHn9A9gCgXCAQmYX1FP8rY8Dg=
+      secure: VZb76qJqOh3P/k9E8qoLousY+XFcdBriCar4NfrNLQaV5Z0zgCit41f5a8E5mx1hXdIJ0wVtgPKqaOvBZw6o+CAPiGP5fpI2ALvq5DC0O3awr8FJ7H02FMSEFED575mcWCcjPvdu9IChgMjkTd0G/Y338dLSSob/Cs/yYImjhniYSowUPXR46LshVsUpb98yi2m/ClY7wBncatVKCAQLbPorE4myHuEL+z14e2CPB4eBlDysZI4X8qymXE1zIWy6ndmg89T5/iGwdVFt7tVeJKfgi8Z0ONunxDHFd5QpH44Z3U3O6MgY5smkqvMldr2/+8XPCbGB80CF17F0JTP7zxropTxGMmanNCDNrCLt9PXjLtan4/XI4+7kT7aESIEj5OA+2svQiQmdgyKHxPkp2Its2pIqOLnKs6ngOfbkEt0NQtPrlwJjLjemI1ac/+BSpBXgu/jXiPqAeGpnc7LxmNckDLuKDQmnY3CUlq4qE+dKeIvjq2ud6lolucgayoY/X/6K53jfqjIxAvbxPvSywZEnGPR+6ui+7ktvVvoscywiYvqgNyUIS0H/8egCxUHOjkoqfeCFEpqd6Y9e0THqdJzuwmQcrFUDkbvgiGT9+OwX4hCTDWzKrSB746JZE0pFWd11HJErHmHmtg//VS8ekdUhXcfIHZJpOQqXMxPlSM4=
     on_success: always
-after_success:
-- "./gradlew jacocoTestReport coveralls"
