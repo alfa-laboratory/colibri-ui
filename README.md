@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/alfa-laboratory/colibri-ui/badge.svg?branch=master)](https://coveralls.io/github/alfa-laboratory/colibri-ui?branch=master)
 [![Download](https://api.bintray.com/packages/alfa-laboratory/maven-releases/colibri-ui/images/download.svg) ](https://bintray.com/alfa-laboratory/maven-releases/colibri-ui/_latestVersion)
 
-[![Slack Chat](https://img.shields.io/badge/Chat-Slack-ff69b4.svg "Join us. Anyone is welcome!")](https://colibri-ui-community.slack.com/shared_invite/MTg3Mzk3NTI2OTQ4LTE0OTU2MzU5NDItZDc1MGFkOWY4Yw) ⇦ Join us!
+[![@colibri_ui_community](https://img.shields.io/badge/Telegram-%40colibri__ui__community-orange.svg)](https://t.me/colibri_ui_community) ⇦ Join us!
 
 Библиотека для автоматизации ui-тестирования мобильных приложений
 
@@ -101,3 +101,4 @@ https://github.com/alfa-laboratory/colibri-ui-template
 ## Контакты
 
 [Slack](https://colibri-ui-community.slack.com/shared_invite/MTg3Mzk3NTI2OTQ4LTE0OTU2MzU5NDItZDc1MGFkOWY4Yw)
+[Telegram](https://t.me/colibri_ui_community)
