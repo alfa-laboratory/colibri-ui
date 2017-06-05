@@ -3,6 +3,7 @@ package ru.colibri.ui.settings.general;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.colibri.ui.core.names.ColibriStartFlags;
 import ru.colibri.ui.core.settings.AppSettings;
 
 import java.io.FileInputStream;
@@ -45,7 +46,7 @@ public class PropertyUtils {
         String propertyKey = matcher.group(2);
         String propertyValue = userProfile.get(propertyKey);
         if (propertyValue == null) {
-            log.error("Couldn't find property {} for user {}", propertyKey, System.getProperty("user", "user not defined"));
+            log.error("Couldn't find property {} for user {}", propertyKey, System.getProperty(ColibriStartFlags.USER, "user not defined"));
             return text;
         }
         return matcher.replaceAll(propertyValue);

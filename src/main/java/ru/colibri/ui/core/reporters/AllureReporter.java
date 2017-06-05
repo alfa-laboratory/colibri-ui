@@ -1,7 +1,6 @@
 package ru.colibri.ui.core.reporters;
 
 import io.appium.java_client.AppiumDriver;
-import org.apache.commons.lang3.NotImplementedException;
 import org.jbehave.core.model.*;
 import org.jbehave.core.reporters.StoryReporter;
 import org.openqa.selenium.OutputType;
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class AllureReporter extends AllureRunListener implements StoryReporter {
     private final Map<String, String> suites = new HashMap<>();
     @Autowired
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
     private Allure allure = Allure.LIFECYCLE;
     private String uid;
 
@@ -148,7 +147,7 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
 
     @Override
     public void failedOutcomes(String step, OutcomesTable table) {
-        throw new NotImplementedException("Method not use. Allure doesn't support this");
+//        throw new NotImplementedException("Method not use. Allure doesn't support this");
     }
 
     @Override
