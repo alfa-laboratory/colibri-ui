@@ -15,9 +15,9 @@ import ru.yandex.qatools.allure.annotations.Step;
 public class BaseIOSPickerWheelSteps extends AbsSteps {
 
 
-    private String pickerWheelXPath = "//XCUIElementTypePickerWheel";
-    private double stepToNext = 0.2;
-    private double stepToLast = 0.35;
+    protected String pickerWheelXPath = "//XCUIElementTypePickerWheel";
+    protected double stepToNext = 0.2;
+    protected double stepToLast = 0.35;
 
     @Step
     @When("установить пикер в следующее значение")
