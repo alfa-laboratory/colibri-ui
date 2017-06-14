@@ -24,6 +24,7 @@ public abstract class AbsDriverConfigurator implements IDriverConfigurator {
         String absolutePath = fileUtils.relativeToAbsolutePath(driversSettings.getFilePath());
         capabilities.setCapability(MobileCapabilityType.APP, absolutePath);
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, driversSettings.getNewCommandTimeoutInSeconds());
+        capabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
         return capabilities;
     }
 
