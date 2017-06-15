@@ -45,13 +45,6 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
     }
 
     public void beforeStep(String step) {
-        try {
-            takeScreenshot(step);
-        } catch (AWTException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         allure.fire(new StepStartedEvent(step).withTitle(step));
     }
 
@@ -73,6 +66,13 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
     }
 
     public void failed(String step, Throwable cause) {
+        try {
+            takeScreenshot(step);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         allure.fire(new StepFinishedEvent());
         allure.fire(new StepFailureEvent().withThrowable(cause.getCause()));
         allure.fire(new TestCaseFailureEvent().withThrowable(cause.getCause()));
