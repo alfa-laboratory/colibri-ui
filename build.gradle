@@ -47,7 +47,7 @@ dependencies {
     compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.4.23"
     compile "org.codehaus.groovy:groovy-all:2.4.5"
     compile "org.slf4j:slf4j-api:1.7.25"
-    testCompile "org.springframework:spring-test:4.3.2.RELEASE"
+    testCompile "org.springframework:spring-test:4.3.9.RELEASE"
     compile "org.jbehave:jbehave-spring:4.1"
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-all:1.10.19"
