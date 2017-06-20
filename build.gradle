@@ -39,16 +39,14 @@ repositories {
 }
 
 dependencies {
-    compile "org.projectlombok:lombok:1.16.10"
     compile "io.appium:java-client:5.0.0-BETA9"
-    compile "org.jbehave:jbehave-core:4.0.5"
-    compile "com.opencsv:opencsv:3.8"
-    compile "org.seleniumhq.selenium:selenium-java:2.53.1"
-    compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.4.23"
-    compile "org.codehaus.groovy:groovy-all:2.4.5"
+    compile "org.jbehave:jbehave-core:4.1.1"
+    compile "org.jbehave:jbehave-spring:4.1.1"
+    compile "org.projectlombok:lombok:1.16.16"
+    compile "com.opencsv:opencsv:3.9"
+    compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.5.4"
     compile "org.slf4j:slf4j-api:1.7.25"
-    testCompile "org.springframework:spring-test:4.3.9.RELEASE"
-    compile "org.jbehave:jbehave-spring:4.1"
+    testCompile "org.springframework:spring-test:4.3.8.RELEASE"
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-all:1.10.19"
     testCompile "de.codecentric:jbehave-junit-runner:1.2.0"

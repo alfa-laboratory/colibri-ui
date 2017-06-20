@@ -13,15 +13,12 @@ public class FileUtilsTests {
         String actualWinStylePath = "C:/am-ui-tests/src/test/resources";
         String path = "/" + actualWinStylePath;
         assertEquals(actualWinStylePath, fileUtils.transformPath(path));
-
     }
 
     @Test
     public void unixPath() {
         FileUtils fileUtils = new FileUtils();
         String actualUnixStylePath = "/home/user/git/project/src/test/resources";
-        String path = actualUnixStylePath;
-        assertEquals(actualUnixStylePath, fileUtils.transformPath(path));
-
+        assertEquals(actualUnixStylePath, fileUtils.transformPath(actualUnixStylePath));
     }
 }

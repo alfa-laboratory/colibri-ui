@@ -15,17 +15,16 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = {UtilsTestConfig.class})
 public class PropertyUtilsTest {
 
+    private static final String ACTUAL_PROPERTY_PATH = "src/test/resources/test.properties";
+    private static final String BAD_PROPERTY_PATH = "test.properties";
+    private static final String TEMPLATE_TO_INJECT = "Здесь был #name#";
+    private static final String BAD_TEMPLATE_TO_INJECT = "Здесь был #phone#";
     @Autowired
     private PropertyUtils propertyUtils;
 
-    private String ACTUAL_PROPERTY_PATH = "src/test/resources/test.properties";
-    private String BAD_PROPERTY_PATH = "test.properties";
-    private String TEMPLATE_TO_INJECT = "Здесь был #name#";
-    private String BAD_TEMPLATE_TO_INJECT = "Здесь был #phone#";
-
     @Test
     public void readProperty() {
-        Properties properties = propertyUtils.readProperty(ACTUAL_PROPERTY_PATH);
+        Properties properties = PropertyUtils.readProperty(ACTUAL_PROPERTY_PATH);
 
         Assert.assertEquals(properties.getProperty("name"), "Вася");
     }
@@ -35,7 +34,7 @@ public class PropertyUtilsTest {
         Throwable throwable = null;
 
         try {
-            propertyUtils.readProperty(BAD_PROPERTY_PATH);
+            PropertyUtils.readProperty(BAD_PROPERTY_PATH);
         } catch (Exception e) {
             throwable = e;
         }
