@@ -14,5 +14,6 @@ import java.util.Map;
 public class AppSettings {
     private final String packageName;
     private final String startPageId;
+    private final boolean activityUse;
     private final Map<String, String> userProfile;
 }
