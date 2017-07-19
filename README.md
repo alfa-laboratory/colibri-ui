@@ -100,5 +100,4 @@ https://github.com/alfa-laboratory/colibri-ui-template
 
 ## Контакты
 
-[Slack](https://colibri-ui-community.slack.com/shared_invite/MTg3Mzk3NTI2OTQ4LTE0OTU2MzU5NDItZDc1MGFkOWY4Yw)
 [Telegram](https://t.me/colibri_ui_community)
