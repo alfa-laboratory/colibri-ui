@@ -48,7 +48,7 @@ dependencies {
     compile "org.slf4j:slf4j-api:1.7.25"
     testCompile "org.springframework:spring-test:4.3.8.RELEASE"
     testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-all:1.10.19"
+    testCompile "org.mockito:mockito-core:2.+"
     testCompile "de.codecentric:jbehave-junit-runner:1.2.0"
 }
 
