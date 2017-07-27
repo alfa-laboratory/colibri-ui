@@ -46,7 +46,7 @@ public class PropertyUtils {
         String propertyKey = matcher.group(2);
         String propertyValue = userProfile.get(propertyKey);
         if (propertyValue == null) {
-            log.error("Couldn't find property {} for user {}", propertyKey, System.getProperty(ColibriStartFlags.USER, "user not defined"));
+            log.error("Couldn't find property {} for user {}", propertyKey, System.getenv().getOrDefault(ColibriStartFlags.USER, "user not defined"));
             return text;
         }
         return matcher.replaceAll(propertyValue);
