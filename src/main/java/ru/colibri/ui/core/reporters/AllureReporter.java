@@ -1,6 +1,7 @@
 package ru.colibri.ui.core.reporters;
 
 import io.appium.java_client.AppiumDriver;
+import org.apache.commons.lang3.StringUtils;
 import org.jbehave.core.model.*;
 import org.jbehave.core.reporters.StoryReporter;
 import org.openqa.selenium.OutputType;
@@ -29,9 +30,12 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
 
     public void beforeStory(Story story, boolean givenStory) {
         uid = generateSuiteUid(story);
+        String path = story.getPath();
+        int secondIndex = StringUtils.ordinalIndexOf(path, "/", 2);
+        String subPath = path.substring(secondIndex + 1);
         TestSuiteStartedEvent event = new TestSuiteStartedEvent(uid, story.getName());
         event.withLabels(AllureModelUtils.createTestFrameworkLabel("JBehave"));
-        event.withTitle(story.getName());
+        event.withTitle(subPath);
         allure.fire(event);
     }
 
