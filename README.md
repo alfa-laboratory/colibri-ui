@@ -1,4 +1,8 @@
+<img align="left" width="140" height="140" title="colibri-ui"
+     src="https://rawgit.com/alfa-laboratory/colibri-ui/master/collibri_logo.svg" />
+     
 # Colibri-ui
+================================
 [![Build Status](https://travis-ci.org/alfa-laboratory/colibri-ui.svg?branch=master)](https://travis-ci.org/alfa-laboratory/colibri-ui)
 [![Coverage Status](https://coveralls.io/repos/github/alfa-laboratory/colibri-ui/badge.svg?branch=master)](https://coveralls.io/github/alfa-laboratory/colibri-ui?branch=master)
 [![Download](https://api.bintray.com/packages/alfa-laboratory/maven-releases/colibri-ui/images/download.svg) ](https://bintray.com/alfa-laboratory/maven-releases/colibri-ui/_latestVersion)
