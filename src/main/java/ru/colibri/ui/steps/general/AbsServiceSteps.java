@@ -17,12 +17,12 @@ public abstract class AbsServiceSteps extends AbsSteps {
 
     }
 
-    private void decreaseImplicitlyWait() {
+    protected void decreaseImplicitlyWait() {
         currentTimeout = getDriversSettings().getImplicitlyWaitInSeconds();
         driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
     }
 
-    private void increaseImplicitlyWait() {
+    protected void increaseImplicitlyWait() {
         driver.manage().timeouts().implicitlyWait(currentTimeout, TimeUnit.SECONDS);
     }
 
