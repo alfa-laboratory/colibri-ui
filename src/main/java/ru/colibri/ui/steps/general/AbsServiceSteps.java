@@ -7,14 +7,23 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbsServiceSteps extends AbsSteps {
 
+    private static final int TIMEOUT = 7;
+    private int currentTimeout;
+
     public void goToMain(String screenName) {
-        int implicitlyWaitInSecondsOld = getDriversSettings().getImplicitlyWaitInSeconds();
-        int implicitlyWaitInSecondsNew = 10;
-//        уменьшаем ожидалку
-        driver.manage().timeouts().implicitlyWait(implicitlyWaitInSecondsNew, TimeUnit.SECONDS);
+        decreaseImplicitlyWait();
         returnCycle(screenName);
-//        возвращаем ожидалку на место
-        driver.manage().timeouts().implicitlyWait(implicitlyWaitInSecondsOld, TimeUnit.SECONDS);
+        increaseImplicitlyWait();
+
+    }
+
+    private void decreaseImplicitlyWait() {
+        currentTimeout = getDriversSettings().getImplicitlyWaitInSeconds();
+        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
+    }
+
+    private void increaseImplicitlyWait() {
+        driver.manage().timeouts().implicitlyWait(currentTimeout, TimeUnit.SECONDS);
     }
 
 
