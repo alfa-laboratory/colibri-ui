@@ -38,7 +38,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
     public void setFirstPickerWheelValue() {
         WebElement webElement = driver.findElement(By.xpath(pickerWheelXPath));
         Point center = ((IOSElement) webElement).getCenter();
-        Dimension size = ((IOSElement) webElement).getSize();
+        Dimension size = webElement.getSize();
         int height = size.getHeight();
         Point target = new Point(center.getX(), center.getY() - (int) (height * stepToLast));
         TouchAction touchAction = new TouchAction(driver);
@@ -51,7 +51,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
     public void setLastPickerWheelValue() {
         WebElement webElement = driver.findElement(By.xpath(pickerWheelXPath));
         Point center = ((IOSElement) webElement).getCenter();
-        Dimension size = ((IOSElement) webElement).getSize();
+        Dimension size = webElement.getSize();
         int height = size.getHeight();
         Point target = new Point(center.getX(), center.getY() + (int) (height * stepToLast));
         TouchAction touchAction = new TouchAction(driver);
@@ -71,7 +71,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
 
     public void setNextPickerWheelValue(WebElement pickerWheelElement, double step) {
         Point center = ((IOSElement) pickerWheelElement).getCenter();
-        Dimension size = ((IOSElement) pickerWheelElement).getSize();
+        Dimension size = pickerWheelElement.getSize();
         int height = size.getHeight();
         TouchAction touchAction = new TouchAction(driver);
         touchAction.press(center.getX(), center.getY() + (int) (height * step)).release();
@@ -81,7 +81,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
 
     public void setPrevPickerWheelValue(WebElement pickerWheelElement, double step) {
         Point center = ((IOSElement) pickerWheelElement).getCenter();
-        Dimension size = ((IOSElement) pickerWheelElement).getSize();
+        Dimension size = pickerWheelElement.getSize();
         int height = size.getHeight();
         TouchAction touchAction = new TouchAction(driver);
         touchAction.press(center.getX(), center.getY() - (int) (height * step)).release();

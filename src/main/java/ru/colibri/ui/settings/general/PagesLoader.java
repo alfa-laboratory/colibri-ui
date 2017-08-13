@@ -3,7 +3,6 @@ package ru.colibri.ui.settings.general;
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.colibri.ui.core.builders.ElementBuilders;
 import ru.colibri.ui.core.exception.PageDescriptionException;
 import ru.colibri.ui.core.fields.IElement;
 import ru.colibri.ui.core.pages.IPage;
@@ -15,6 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static ru.colibri.ui.core.builders.ElementBuilders.element;
+
 @Component
 public class PagesLoader {
     @Autowired
@@ -22,9 +23,6 @@ public class PagesLoader {
 
     @Autowired
     private FileUtils fileUtils;
-
-    @Autowired
-    private ElementBuilders create;
 
     public List<IPage> loadPagesFromDirectory(File directory) {
         return fileUtils.getAllFilesAtDirectory(directory).stream()
@@ -60,7 +58,7 @@ public class PagesLoader {
         String text = propertyUtils.injectProperties(cells[3]);
         String xpath = propertyUtils.injectProperties(cells[4]);
         Boolean specific = Boolean.valueOf(cells[5]);
-        return create.element()
+        return element()
                 .withName(name)
                 .withContentDesc(contentDesc)
                 .withId(id)

@@ -13,8 +13,6 @@ import ru.yandex.qatools.allure.config.AllureModelUtils;
 import ru.yandex.qatools.allure.events.*;
 import ru.yandex.qatools.allure.junit.AllureRunListener;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,13 +68,7 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
     }
 
     public void failed(String step, Throwable cause) {
-        try {
-            takeScreenshot(step);
-        } catch (AWTException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        takeScreenshot(step);
         allure.fire(new StepFinishedEvent());
         allure.fire(new StepFailureEvent().withThrowable(cause.getCause()));
         allure.fire(new TestCaseFailureEvent().withThrowable(cause.getCause()));
@@ -192,7 +184,7 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
         return suites;
     }
 
-    public void takeScreenshot(String step) throws AWTException, IOException {
+    public void takeScreenshot(String step) {
         if (applicationContext.getBean(AppiumDriver.class) != null) {
             Allure.LIFECYCLE.fire(new MakeAttachmentEvent((applicationContext.getBean(AppiumDriver.class)).getScreenshotAs(OutputType.BYTES), step, "image/png"));
         }

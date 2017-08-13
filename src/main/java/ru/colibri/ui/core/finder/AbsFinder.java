@@ -17,13 +17,13 @@ public abstract class AbsFinder<T extends AppiumDriver> implements IFinder {
     @Override
     public WebElement waitClickable(By by) {
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), getDriversSettings().getFindingTimeOutInSeconds());
-        return wait.<WebElement>until(ExpectedConditions.elementToBeClickable(by));
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     @Override
     public WebElement waitVisible(By by) {
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), getDriversSettings().getFindingTimeOutInSeconds());
-        return wait.<WebElement>until(ExpectedConditions.visibilityOfElementLocated(by));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     @Override

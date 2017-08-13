@@ -25,6 +25,7 @@ public class BaseAndroidSystemButtonsSteps extends AbsSteps implements ISystemBu
         ((AndroidDriver) driver).pressKeyCode(AndroidKeyCode.HOME);
     }
 
+    @Override
     @Step
     @When("выполнено нажатие на Назад")
     public void systemBackClick() {

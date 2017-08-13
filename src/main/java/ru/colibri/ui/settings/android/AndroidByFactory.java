@@ -25,11 +25,11 @@ public class AndroidByFactory extends ByFactory {
         StringBuilder searchPattern = new StringBuilder()
                 .append("//*[");
         if (!TextUtils.isEmpty(element.getId())) {
-            searchPattern.append("@resource-id='" + createFullElementId(element.getId()) + "']");
+            searchPattern.append("@resource-id='").append(createFullElementId(element.getId())).append("']");
         } else if (!TextUtils.isEmpty(element.getContentDesc())) {
-            searchPattern.append("@content-desc='" + element.getContentDesc() + "']");
+            searchPattern.append("@content-desc='").append(element.getContentDesc()).append("']");
         } else if (!TextUtils.isEmpty(element.getText())) {
-            searchPattern.append("@text='" + element.getText() + "']");
+            searchPattern.append("@text='").append(element.getText()).append("']");
         } else if (!TextUtils.isEmpty(element.getXpath())) {
             return element.getXpath();
         } else {
