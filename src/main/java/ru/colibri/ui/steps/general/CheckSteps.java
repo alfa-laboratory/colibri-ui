@@ -40,7 +40,9 @@ public class CheckSteps extends AbsSteps {
     @Then("элемент \"$fieldName\" не найден на странице")
     public void stepCheckNotExistField(String fieldName) {
         IElement element = getCurrentPage().getElementByName(fieldName);
+        decreaseImplicitlyWait();
         int sizeOfList = finder.findWebElements(element).size();
+        increaseImplicitlyWait();
         assertEquals("Найден элемент на странице", 0, sizeOfList);
     }
 }
