@@ -16,5 +16,4 @@ public abstract class AbsServiceSteps extends AbsSteps {
     protected abstract ISystemButtonsClick getISystemButtonsClickBean();
 
     protected abstract String getAlertLocator();
-
 }

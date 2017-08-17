@@ -30,6 +30,7 @@ public class JBConfiguratorImpl implements IJBConfigurator {
         embedderControls.useThreads(1);
     }
 
+    @Override
     public Configuration createConfig() {
         Configuration configuration = new Configuration() {
         };

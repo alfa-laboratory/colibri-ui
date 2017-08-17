@@ -55,6 +55,6 @@ public abstract class AbsPageProvider implements IPageProvider {
 
     @Override
     public void addPagesObject(List<IPage> pages) {
-        pages.stream().forEach(this::addPageObject);
+        pages.forEach(this::addPageObject);
     }
 }
