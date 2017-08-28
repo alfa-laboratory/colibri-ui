@@ -49,7 +49,7 @@ public class PagesLoader {
     }
 
     private IElement getIElement(File file, String[] cells) {
-        if (cells.length == 1 || cells.length > 7) {
+        if (cells.length == 1 || cells.length < 6 || cells.length > 7) {
             throw new PageDescriptionException(file);
         }
         String name = cells[0];

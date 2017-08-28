@@ -21,6 +21,7 @@ public class PagesLoaderTest {
     private final static String FILE_PATH = "src/test/resources/loadFiles/goodPage.csv";
     private final static String BAD_FILE_PATH = "src/test/resources/loadFiles/badPage.csv";
     private final static String BAD_FILE_PATH2 = "src/test/resources/loadFiles/badPage2.csv";
+    private final static String BAD_FILE_PATH3 = "src/test/resources/loadFiles/badPage3.csv";
     private final static String DIR_PATH = "src/test/resources/loadFiles/loadDir";
     @Autowired
     private PagesLoader pagesLoader;
@@ -40,6 +41,11 @@ public class PagesLoaderTest {
     @Test(expected = PageDescriptionException.class)
     public void loadPageFromFileWithOutCells() throws Exception {
         pagesLoader.loadPageFromFile(new File(BAD_FILE_PATH2));
+    }
+
+    @Test(expected = PageDescriptionException.class)
+    public void loadPageFromFileWithMoreCells() throws Exception {
+        pagesLoader.loadPageFromFile(new File(BAD_FILE_PATH3));
     }
 
     @Test(expected = RuntimeException.class)
