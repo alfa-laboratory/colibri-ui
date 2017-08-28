@@ -13,6 +13,7 @@ public class TestIOSByFactory {
 
     private IOSByFactory byFactory = new IOSByFactory();
     private String XPATH_TEMPLATE = "//*[contains(@name,'%1$s') or contains(@value,'%1$s') or contains(@label,'%1$s')]";
+    private String IOSNSPREDICATE_TEMPLATE = "name contains'%1$s' or value contains '%1$s' or label contains '%1$s'";
 
     @Test
     public void testByID() {
@@ -32,8 +33,8 @@ public class TestIOSByFactory {
                 .withName("elementByText")
                 .withText("visibleText")
                 .please();
-        String xpath = format(XPATH_TEMPLATE, element.getText());
-        By expected = By.xpath(xpath);
+        String predicate = format(IOSNSPREDICATE_TEMPLATE, element.getText());
+        MobileBy expected = (MobileBy) MobileBy.iOSNsPredicateString(predicate);
 
         By byElementFromFactory = byFactory.byElement(element);
         Assert.assertEquals("Результат работы IOSFactory по text некорректен", expected, byElementFromFactory);
