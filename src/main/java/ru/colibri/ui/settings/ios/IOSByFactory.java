@@ -12,21 +12,25 @@ import static java.lang.String.format;
 @Component
 public class IOSByFactory extends ByFactory {
 
-    private static String XPATH_TEMPLATE = "//*[contains(@name,'%1$s') or contains(@value,'%1$s') or contains(@label,'%1$s')]";
-
+    private static String IOSNSPREDICATE_TEMPLATE = "name contains'%1$s' or value contains '%1$s' or label contains '%1$s'";
+    private String XPATH_TEMPLATE = "//*[contains(@name,'%1$s') or contains(@value,'%1$s') or contains(@label,'%1$s')]";
 
     public By byNameOrValueOrLabel(String label) {
-        return By.xpath(createXPathByNameOrValueOrLabel(label));
+        return byIOSNSPredicate(createIOSNSPredicateByNameOrValueOrLabel(label));
     }
 
     private String createXPathByNameOrValueOrLabel(String label) {
         return format(XPATH_TEMPLATE, label);
     }
 
+    private String createIOSNSPredicateByNameOrValueOrLabel(String label) {
+        return format(IOSNSPREDICATE_TEMPLATE, label);
+    }
+
     @Override
     public By byElement(IElement element) {
         if (!TextUtils.isEmpty(element.getNSPredicate())) {
-            return MobileBy.iOSNsPredicateString(element.getNSPredicate());
+            return byIOSNSPredicate(element.getNSPredicate());
         }
         if (TextUtils.isEmpty(element.getXpath())) {
             if (TextUtils.isEmpty(element.getId())) {
@@ -53,5 +57,9 @@ public class IOSByFactory extends ByFactory {
                 return createXPathByNameOrValueOrLabel(element.getText());
             }
         }
+    }
+
+    public MobileBy byIOSNSPredicate(String predicate) {
+        return (MobileBy) MobileBy.iOSNsPredicateString(predicate);
     }
 }
