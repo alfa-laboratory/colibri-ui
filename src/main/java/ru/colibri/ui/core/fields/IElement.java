@@ -12,5 +12,7 @@ public interface IElement {
 
     String getXpath();
 
+    String getNSPredicate();
+
     boolean isSpecific();
 }

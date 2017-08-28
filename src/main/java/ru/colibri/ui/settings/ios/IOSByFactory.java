@@ -1,5 +1,6 @@
 package ru.colibri.ui.settings.ios;
 
+import io.appium.java_client.MobileBy;
 import org.apache.http.util.TextUtils;
 import org.openqa.selenium.By;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,9 @@ public class IOSByFactory extends ByFactory {
 
     @Override
     public By byElement(IElement element) {
+        if (!TextUtils.isEmpty(element.getNSPredicate())) {
+            return MobileBy.iOSNsPredicateString(element.getNSPredicate());
+        }
         if (TextUtils.isEmpty(element.getXpath())) {
             if (TextUtils.isEmpty(element.getId())) {
                 return byNameOrValueOrLabel(element.getText());

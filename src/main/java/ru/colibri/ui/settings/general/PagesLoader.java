@@ -49,7 +49,7 @@ public class PagesLoader {
     }
 
     private IElement getIElement(File file, String[] cells) {
-        if (cells.length == 1 || cells.length != 6) {
+        if (cells.length == 1 || cells.length < 6 || cells.length > 7) {
             throw new PageDescriptionException(file);
         }
         String name = cells[0];
@@ -57,7 +57,9 @@ public class PagesLoader {
         String id = propertyUtils.injectProperties(cells[2]);
         String text = propertyUtils.injectProperties(cells[3]);
         String xpath = propertyUtils.injectProperties(cells[4]);
-        Boolean specific = Boolean.valueOf(cells[5]);
+        Boolean specific = Boolean.valueOf(cells[cells.length - 1]);
+        String nsPredicate = "";
+        if (cells.length == 7) nsPredicate = propertyUtils.injectProperties(cells[5]);
         return element()
                 .withName(name)
                 .withContentDesc(contentDesc)
@@ -65,6 +67,7 @@ public class PagesLoader {
                 .withText(text)
                 .withXPath(xpath)
                 .withSpecific(specific)
+                .withNSPredicate(nsPredicate)
                 .please();
     }
 }
