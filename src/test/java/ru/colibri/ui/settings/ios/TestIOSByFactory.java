@@ -1,5 +1,6 @@
 package ru.colibri.ui.settings.ios;
 
+import io.appium.java_client.MobileBy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -79,6 +80,18 @@ public class TestIOSByFactory {
 
         byElementFromFactory = byFactory.getNestedElements(parentID, elementText);
         Assert.assertEquals("Результат работы IOSFactory по nestedElement некорректен", expected, byElementFromFactory);
+    }
+
+    @Test
+    public void testByNSPredicate() {
+        IElement element = ElementBuilders.element()
+                .withName("elementByNSPredicate")
+                .withNSPredicate("name like 'test'")
+                .please();
+        MobileBy expected = (MobileBy) MobileBy.iOSNsPredicateString("name like 'test'");
+
+        By byElementFromFactory = byFactory.byElement(element);
+        Assert.assertEquals("Результат работы IOSFactory по text некорректен", expected, byElementFromFactory);
     }
 
 }

@@ -13,6 +13,7 @@ public class Element implements IElement {
     private String id;
     private String text;
     private String xpath;
+    private String nsPredicate;
     private boolean specific;
 
     @Override
@@ -43,6 +44,11 @@ public class Element implements IElement {
     @Override
     public String getXpath() {
         return xpath;
+    }
+
+    @Override
+    public String getNSPredicate() {
+        return nsPredicate;
     }
 }
 

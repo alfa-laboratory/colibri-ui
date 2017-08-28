@@ -9,6 +9,7 @@ public class ElementBuilder {
     private String contentDesc;
     private String text;
     private String xpath;
+    private String nsPredicate;
     private boolean specific;
 
     public ElementBuilder withName(String name) {
@@ -41,7 +42,12 @@ public class ElementBuilder {
         return this;
     }
 
+    public ElementBuilder withNSPredicate(String nsPredicate) {
+        this.nsPredicate = nsPredicate;
+        return this;
+    }
+
     public IElement please() {
-        return new Element(name, contentDesc, id, text, xpath, specific);
+        return new Element(name, contentDesc, id, text, xpath, nsPredicate, specific);
     }
 }
