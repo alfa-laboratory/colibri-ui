@@ -91,7 +91,7 @@ public class TestIOSByFactory {
         MobileBy expected = (MobileBy) MobileBy.iOSNsPredicateString("name like 'test'");
 
         By byElementFromFactory = byFactory.byElement(element);
-        Assert.assertEquals("Результат работы IOSFactory по text некорректен", expected, byElementFromFactory);
+        Assert.assertEquals("Результат работы IOSFactory по NSPredicate некорректен", expected, byElementFromFactory);
     }
 
 }
