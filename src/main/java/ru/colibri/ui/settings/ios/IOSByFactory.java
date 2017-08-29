@@ -12,7 +12,7 @@ import static java.lang.String.format;
 @Component
 public class IOSByFactory extends ByFactory {
 
-    private static String IOSNSPREDICATE_TEMPLATE = "name contains'%1$s' or value contains '%1$s' or label contains '%1$s'";
+    private static String IOSNSPREDICATE_TEMPLATE = "name contains '%1$s' or value contains '%1$s' or label contains '%1$s'";
     private String XPATH_TEMPLATE = "//*[contains(@name,'%1$s') or contains(@value,'%1$s') or contains(@label,'%1$s')]";
 
     public By byNameOrValueOrLabel(String label) {
