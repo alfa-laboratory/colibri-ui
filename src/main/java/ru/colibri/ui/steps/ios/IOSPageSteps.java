@@ -33,6 +33,6 @@ public class IOSPageSteps extends AbsSteps {
     @Then("на экране есть надпись \"$textOrKeyword\"")
     public void checkText(@Named("$textOrKeyword") String textOrKeyword) {
         String text = propertyUtils.injectProperties(textOrKeyword);
-        driver.findElement(MobileBy.iOSNsPredicateString(format("name contains '%1$s' or text contains '%1$s' or value contains '%1$s' or content-desc contains '%1$s'", text)));
+        driver.findElement(MobileBy.iOSNsPredicateString(format("name contains '%1$s' or value contains '%1$s' or label contains '%1$s'", text)));
     }
 }
