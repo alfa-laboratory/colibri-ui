@@ -46,6 +46,7 @@ public class TextFieldSteps extends AbsSteps {
     @When("очистить \"$fieldName\"")
     public void clearField(@Named("$fieldName") String fieldName) {
         WebElement webElement = getWebElementByName(fieldName);
+        webElement.clear();
         Keyboard keyboard = driver.getKeyboard();
         for (int i = webElement.getText().length(); i > 0; i--) {
             keyboard.sendKeys(Keys.BACK_SPACE);
