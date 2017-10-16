@@ -1,6 +1,6 @@
 package ru.colibri.ui.steps.general;
 
-import org.eclipse.jetty.util.annotation.Name;
+import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class ListItemCheck extends AbsSteps {
 
     @Step
     @Then("количество найденных элементов \"$fieldName\" равно \"$quantityExpectedValue\"")
-    public void listItemCheck(@Name("$fieldName") String fieldName, @Name("$quantityExpectedValue") int quantityExpectedValue) {
+    public void listItemCheck(@Named("$fieldName") String fieldName, @Named("$quantityExpectedValue") int quantityExpectedValue) {
         IElement element = getCurrentPage().getElementByName(fieldName);
         List<WebElement> elementsFound = finder.findWebElements(element);
         int quantityActualElements = elementsFound.size();
