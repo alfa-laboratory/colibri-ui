@@ -11,16 +11,23 @@ import java.time.Duration;
 public class SwipeSteps extends AbsSteps {
 
 
-    protected void verticalSwipe(String elementName, int swipeLength) {
+    protected void verticalSwipe(String elementName, int swipeLength, int duration) {
         WebElement webElement = getWebElementByName(elementName);
-        new TouchAction(driver).press(webElement).moveTo(0, swipeLength).release().perform();
+        new TouchAction(driver)
+                .press(webElement)
+                .waitAction(Duration.ofSeconds(duration))
+                .moveTo(0, swipeLength)
+                .release().perform();
 
     }
 
-    protected void horizontalSwip(String elementName, int swipeLength, int duration) {
+    protected void horizontalSwipe(String elementName, int swipeLength, int duration) {
         WebElement webElement = getWebElementByName(elementName);
-        new TouchAction(driver).press(webElement).waitAction(Duration.ofSeconds(duration)).
-                moveTo(swipeLength, 0).release().perform();
+        new TouchAction(driver)
+                .press(webElement)
+                .waitAction(Duration.ofSeconds(duration))
+                .moveTo(swipeLength, 0)
+                .release().perform();
     }
 
 }
