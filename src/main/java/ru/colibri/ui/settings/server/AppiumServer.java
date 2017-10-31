@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class AppiumServer {
 
     @Autowired
-    private AbstractServerConfig config;
+    private IServerConfig config;
 
 
     private AppiumDriverLocalService service;
