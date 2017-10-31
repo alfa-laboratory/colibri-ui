@@ -18,7 +18,7 @@ public class AppiumServerTest {
     AppiumServer server;
 
     @Mock
-    AbstractServerConfig config;
+    IServerConfig config;
 
     @Before
     public void setUp() {
