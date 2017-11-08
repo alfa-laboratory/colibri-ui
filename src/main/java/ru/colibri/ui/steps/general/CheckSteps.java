@@ -45,6 +45,7 @@ public class CheckSteps extends AbsSteps {
                     containsString(expectedValueOne.toLowerCase()),
                     containsString(expectedValueTwo.toLowerCase())
             ));
+
         });
     }
 
