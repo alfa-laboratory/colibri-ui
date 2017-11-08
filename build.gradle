@@ -42,7 +42,7 @@ dependencies {
     compile "io.appium:java-client:5.0.4"
     compile "org.jbehave:jbehave-core:4.1.1"
     compile "org.jbehave:jbehave-spring:4.1.1"
-    compile "org.projectlombok:lombok:1.16.16"
+    compile "org.projectlombok:lombok:1.16.18"
     compile "com.opencsv:opencsv:3.9"
     compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.5.4"
     compile "org.slf4j:slf4j-api:1.7.25"
