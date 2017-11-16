@@ -1,7 +1,9 @@
 package ru.colibri.ui.settings.loaders;
 
 import lombok.extern.java.Log;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
+import ru.colibri.ui.core.exception.PropertyNotFoundException;
 import ru.colibri.ui.core.settings.TestSettings;
 import ru.colibri.ui.settings.general.PropertyUtils;
 
@@ -45,7 +47,11 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
     @Override
     public TestSettings loadTestSettings(String testType) {
         Properties props = PropertyUtils.readProperty(TEST_TYPE_FILTER);
-        List<String> testCycleFilters = asList(props.getProperty(testType).split(","));
+        String property = props.getProperty(testType);
+        if (StringUtils.isEmpty(property)) {
+            throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
+        }
+        List<String> testCycleFilters = asList(property.split(","));
         return TestSettings.builder()
                 .flagsMetaFilters(testCycleFilters)
                 .build();
