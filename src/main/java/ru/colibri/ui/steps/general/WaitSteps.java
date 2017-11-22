@@ -1,6 +1,5 @@
 package ru.colibri.ui.steps.general;
 
-import org.jbehave.core.annotations.Aliases;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.springframework.stereotype.Component;
@@ -11,9 +10,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 public class WaitSteps extends AbsSteps {
 
     @Step
-    @When("ожидаем $timeInterval {секунд|секунду|секунды}")
-    @Aliases(values = {"подождать $timeInterval {секунд|секунду|секунды}",
-                        "подождать \"$timeInterval\" {секунд|секунду|секунды}"})
+    @When("{ожидаем|подождать} $timeInterval {секунд|секунду|секунды}")
     public void waitSomeTime(@Named("$timeInterval") int timeInterval) throws InterruptedException {
         Thread.sleep(timeInterval * 1000);
     }
