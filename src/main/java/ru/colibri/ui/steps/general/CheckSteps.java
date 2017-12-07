@@ -68,12 +68,22 @@ public class CheckSteps extends AbsSteps {
     }
 
     @Step
+    @Then("элемент \"$fieldName\" присутствует на странице")
+    public void stepCheckExistField(String fieldName) {
+        assertTrue("Элемент не найден на странице", checkElementExist(fieldName));
+    }
+
+    @Step
     @Then("элемент \"$fieldName\" не найден на странице")
     public void stepCheckNotExistField(String fieldName) {
+        assertFalse("Найден элемент на странице", checkElementExist(fieldName));
+    }
+
+    private boolean checkElementExist(String fieldName) {
         IElement element = getCurrentPage().getElementByName(fieldName);
         decreaseImplicitlyWait();
         int sizeOfList = finder.findWebElements(element).size();
         increaseImplicitlyWait();
-        assertEquals("Найден элемент на странице", 0, sizeOfList);
+        return sizeOfList > 0;
     }
 }
