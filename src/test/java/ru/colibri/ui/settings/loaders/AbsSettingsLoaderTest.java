@@ -20,8 +20,18 @@ public class AbsSettingsLoaderTest {
     @Autowired
     private ISettingsLoader settingsLoader;
 
+
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyTestType() {
+        try {
+            settingsLoader.loadTestSettings("");
+        } catch (PropertyNotFoundException e) {
+            Assert.assertEquals(e.getMessage(), "Не задан тестовый цикл, проверьте данные");
+        }
+    }
+
     @Test
-    public void loadTestSettings() throws Exception {
+    public void loadTestSettingsFromProperty() throws Exception {
         TestSettings testSettings = settingsLoader.loadTestSettings("actual.property");
         Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
         Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "hello");
@@ -29,12 +39,12 @@ public class AbsSettingsLoaderTest {
 
 
     @Test(expected = PropertyNotFoundException.class)
-    public void loadTestSettingsBad() throws Exception {
+    public void loadTestSettingsFromBadProperty() throws Exception {
         settingsLoader.loadTestSettings("bad.property");
     }
 
     @Test
-    public void loadTestSettingsBadWithText() throws Exception {
+    public void loadTestSettingsFromBadPropertyWithText() throws Exception {
         String propertyName = "bad.property";
         try {
             settingsLoader.loadTestSettings(propertyName);
@@ -44,8 +54,35 @@ public class AbsSettingsLoaderTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void loadTestSettingsEmpty() throws Exception {
+    public void loadTestSettingsFromEmptyProperty() throws Exception {
         settingsLoader.loadTestSettings("empty.property");
+    }
+
+    @Test
+    public void loadTestSettingsFreeType() throws Exception {
+        TestSettings testSettings = settingsLoader.loadTestSettings("freeType,+azaza,-ozozo");
+        Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
+        Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+azaza");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void loadTestSettingsWithBadFreeType() throws Exception {
+        settingsLoader.loadTestSettings("azaza,ozozo");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void loadTestSettingsWithBadFilters() throws Exception {
+        settingsLoader.loadTestSettings("freeType,+azaza,ozozo");
+    }
+
+    @Test
+    public void loadTestSettingsFreeTypeBadWithText() throws Exception {
+        String freeType = "azaza,ozozo";
+        try {
+            settingsLoader.loadTestSettings(freeType);
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals(e.getMessage(), format("Неправильно задан тестовый цикл в свободной конфигурации, проверьте данные: %s", freeType));
+        }
     }
 
 }
