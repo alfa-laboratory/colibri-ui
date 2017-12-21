@@ -41,41 +41,39 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
         } catch (IOException e) {
             log.log(Level.WARNING, "Error loading file.", e);
         }
-
     }
 
     @Override
     public TestSettings loadTestSettings(String testType) {
         if (StringUtils.isEmpty(testType))
             throw new IllegalArgumentException("Не задан тестовый цикл, проверьте данные");
-        List<String> testCycleFilters = getTestCycle(testType);
+        List<String> testCycleFilters = getTestCycleFilters(testType);
         return TestSettings.builder()
                 .flagsMetaFilters(testCycleFilters)
                 .build();
     }
 
-    private List<String> getTestCycle(String testType) {
+    private List<String> getTestCycleFilters(String testType) {
         if (testType.matches(".*?[+-].*?")) {
-            return getFreeTypeTestCycle(testType);
+            return getFreeTypeTestCycleFilters(testType);
         } else {
-            return getTestCycleFromProperty(testType);
+            return getTestCycleFiltersFromProperty(testType);
         }
     }
 
-    private List<String> getTestCycleFromProperty(String testType) {
+    private List<String> getTestCycleFiltersFromProperty(String testType) {
         Properties props = PropertyUtils.readProperty(TEST_TYPE_FILTER);
         String testCycle = props.getProperty(testType);
         if (StringUtils.isEmpty(testCycle)) {
-            throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
+            throw new PropertyNotFoundException(testCycle, TEST_TYPE_FILTER);
         }
-        return getFreeTypeTestCycle(testCycle);
+        return getFreeTypeTestCycleFilters(testCycle);
     }
 
-    private List<String> getFreeTypeTestCycle(String testType) {
-        List<String> testCycleFilters = Arrays.stream(testType.split(",")).collect(Collectors.toList());
+    private List<String> getFreeTypeTestCycleFilters(String testCycle) {
+        List<String> testCycleFilters = Arrays.stream(testCycle.split(",")).collect(Collectors.toList());
         checkTestCycleFiltersSyntax(testCycleFilters);
         return testCycleFilters;
-
     }
 
     private void checkTestCycleFiltersSyntax(List<String> testCycleFilters) {

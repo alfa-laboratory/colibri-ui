@@ -20,7 +20,6 @@ public class AbsSettingsLoaderTest {
     @Autowired
     private ISettingsLoader settingsLoader;
 
-
     @Test(expected = IllegalArgumentException.class)
     public void emptyTestType() {
         try {
@@ -36,7 +35,6 @@ public class AbsSettingsLoaderTest {
         Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
         Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+hello");
     }
-
 
     @Test(expected = PropertyNotFoundException.class)
     public void loadTestSettingsFromBadProperty() throws Exception {
@@ -74,7 +72,6 @@ public class AbsSettingsLoaderTest {
         Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
         Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+includeFilter");
     }
-
 
     @Test
     public void loadTestSettingsWithBadIncludeWithText() throws Exception {
