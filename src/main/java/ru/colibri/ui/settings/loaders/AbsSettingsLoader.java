@@ -10,6 +10,7 @@ import ru.colibri.ui.settings.general.PropertyUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -17,7 +18,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
 import static org.apache.commons.io.FileUtils.copyURLToFile;
 
 @Log
@@ -46,15 +46,44 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
 
     @Override
     public TestSettings loadTestSettings(String testType) {
-        Properties props = PropertyUtils.readProperty(TEST_TYPE_FILTER);
-        String property = props.getProperty(testType);
-        if (StringUtils.isEmpty(property)) {
-            throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
-        }
-        List<String> testCycleFilters = asList(property.split(","));
+        if (StringUtils.isEmpty(testType))
+            throw new IllegalArgumentException("Не задан тестовый цикл, проверьте данные");
+        List<String> testCycleFilters = getTestCycle(testType);
         return TestSettings.builder()
                 .flagsMetaFilters(testCycleFilters)
                 .build();
+    }
+
+    private List<String> getTestCycle(String testType) {
+        if (testType.contains("+") || testType.contains("-")) {
+            return getFreeTypeTestCycle(testType);
+        } else {
+            return getTestCycleFromProperty(testType);
+        }
+    }
+
+    private List<String> getTestCycleFromProperty(String testType) {
+        Properties props = PropertyUtils.readProperty(TEST_TYPE_FILTER);
+        String testCycle = props.getProperty(testType);
+        if (StringUtils.isEmpty(testCycle)) {
+            throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
+        }
+        return getFreeTypeTestCycle(testCycle);
+    }
+
+    private List<String> getFreeTypeTestCycle(String testType) {
+        List<String> testCycleFilters = Arrays.stream(testType.split(",")).collect(Collectors.toList());
+        checkTestCycleFiltersSyntax(testCycleFilters);
+        return testCycleFilters;
+
+    }
+
+    private void checkTestCycleFiltersSyntax(List<String> testCycleFilters) {
+        boolean correctFiltersSyntax = testCycleFilters.stream()
+                .allMatch(filter -> filter.matches("^[+-]\\w*"));
+        if (!correctFiltersSyntax) {
+            throw new IllegalArgumentException("Неправильный синтаксис фильтров тестового цикла, проверьте данные");
+        }
     }
 
     @Override
