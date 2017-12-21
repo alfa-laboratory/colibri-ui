@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
 import static org.apache.commons.io.FileUtils.copyURLToFile;
 
 @Log
@@ -56,11 +55,10 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
     }
 
     private List<String> getTestCycle(String testType) {
-        if (testType.split(",").length == 1) {
-            return getTestCycleFromProperty(testType);
-        } else {
-
+        if (testType.contains("+") || testType.contains("-")) {
             return getFreeTypeTestCycle(testType);
+        } else {
+            return getTestCycleFromProperty(testType);
         }
     }
 
@@ -70,24 +68,21 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
         if (StringUtils.isEmpty(testCycle)) {
             throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
         }
-        return asList(testCycle.split(","));
+        return getFreeTypeTestCycle(testCycle);
     }
 
     private List<String> getFreeTypeTestCycle(String testType) {
-        checkFreeTypeTestCycle(testType);
-        return Arrays.stream(testType.split(","))
-                .skip(1)
-                .collect(Collectors.toList());
+        List<String> testCycleFilters = Arrays.stream(testType.split(",")).collect(Collectors.toList());
+        checkTestCycleFiltersSyntax(testCycleFilters);
+        return testCycleFilters;
+
     }
 
-    private void checkFreeTypeTestCycle(String testType) {
-        IllegalArgumentException exception = new IllegalArgumentException(format("Неправильно задан тестовый цикл в свободной конфигурации, проверьте данные: %s", testType));
-        boolean correctStringStart = testType.startsWith("freeType");
-        boolean correctFiltersSyntax = Arrays.stream(testType.split(","))
-                .skip(1)
-                .allMatch(filter -> filter.startsWith("+") || filter.startsWith("-"));
-        if (!correctStringStart || !correctFiltersSyntax) {
-            throw exception;
+    private void checkTestCycleFiltersSyntax(List<String> testCycleFilters) {
+        boolean correctFiltersSyntax = testCycleFilters.stream()
+                .allMatch(filter -> filter.matches("^[+-]\\w*"));
+        if (!correctFiltersSyntax) {
+            throw new IllegalArgumentException("Неправильный синтаксис фильтров тестового цикла, проверьте данные");
         }
     }
 

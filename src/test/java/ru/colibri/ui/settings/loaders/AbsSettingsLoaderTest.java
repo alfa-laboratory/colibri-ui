@@ -34,7 +34,7 @@ public class AbsSettingsLoaderTest {
     public void loadTestSettingsFromProperty() throws Exception {
         TestSettings testSettings = settingsLoader.loadTestSettings("actual.property");
         Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
-        Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "hello");
+        Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+hello");
     }
 
 
@@ -53,6 +53,16 @@ public class AbsSettingsLoaderTest {
         }
     }
 
+    @Test
+    public void loadTestSettingsBadPropertySyntax() throws Exception {
+        String propertyName = "bad.syntax.property";
+        try {
+            settingsLoader.loadTestSettings(propertyName);
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals(e.getMessage(), "Неправильный синтаксис фильтров тестового цикла, проверьте данные");
+        }
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void loadTestSettingsFromEmptyProperty() throws Exception {
         settingsLoader.loadTestSettings("empty.property");
@@ -60,29 +70,40 @@ public class AbsSettingsLoaderTest {
 
     @Test
     public void loadTestSettingsFreeType() throws Exception {
-        TestSettings testSettings = settingsLoader.loadTestSettings("freeType,+azaza,-ozozo");
+        TestSettings testSettings = settingsLoader.loadTestSettings("+includeFilter,-excludeFilter");
         Assert.assertEquals(testSettings.getFlagsMetaFilters().size(), 2);
-        Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+azaza");
+        Assert.assertEquals(testSettings.getFlagsMetaFilters().get(0), "+includeFilter");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void loadTestSettingsWithBadFreeType() throws Exception {
-        settingsLoader.loadTestSettings("azaza,ozozo");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void loadTestSettingsWithBadFilters() throws Exception {
-        settingsLoader.loadTestSettings("freeType,+azaza,ozozo");
-    }
 
     @Test
-    public void loadTestSettingsFreeTypeBadWithText() throws Exception {
-        String freeType = "azaza,ozozo";
+    public void loadTestSettingsWithBadIncludeWithText() throws Exception {
+        String freeType = "includeFilter,-excludeFilter";
         try {
             settingsLoader.loadTestSettings(freeType);
         } catch (IllegalArgumentException e) {
-            Assert.assertEquals(e.getMessage(), format("Неправильно задан тестовый цикл в свободной конфигурации, проверьте данные: %s", freeType));
+            Assert.assertEquals(e.getMessage(), "Неправильный синтаксис фильтров тестового цикла, проверьте данные");
         }
     }
 
+    @Test
+    public void loadTestSettingsBadExcludeSyntaxWithText() throws Exception {
+        String freeType = "+includeFilter,excludeFilter";
+        try {
+            settingsLoader.loadTestSettings(freeType);
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals(e.getMessage(), "Неправильный синтаксис фильтров тестового цикла, проверьте данные");
+        }
+    }
+
+    @Test
+    public void loadTestSettingsFromType() throws Exception {
+        String type = "includeFilter,excludeFilter";
+        try {
+            settingsLoader.loadTestSettings(type);
+        } catch (PropertyNotFoundException e) {
+            System.out.println(e.getMessage());
+            Assert.assertEquals(e.getMessage(), format("Property %s not found on file: %s", type, TEST_TYPE_FILTER));
+        }
+    }
 }
