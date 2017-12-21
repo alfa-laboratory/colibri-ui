@@ -99,7 +99,6 @@ public class AbsSettingsLoaderTest {
         try {
             settingsLoader.loadTestSettings(type);
         } catch (PropertyNotFoundException e) {
-            System.out.println(e.getMessage());
             Assert.assertEquals(e.getMessage(), format("Property %s not found on file: %s", type, TEST_TYPE_FILTER));
         }
     }
