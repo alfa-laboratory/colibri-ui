@@ -65,7 +65,7 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
         Properties props = PropertyUtils.readProperty(TEST_TYPE_FILTER);
         String testCycle = props.getProperty(testType);
         if (StringUtils.isEmpty(testCycle)) {
-            throw new PropertyNotFoundException(testCycle, TEST_TYPE_FILTER);
+            throw new PropertyNotFoundException(testType, TEST_TYPE_FILTER);
         }
         return getFreeTypeTestCycleFilters(testCycle);
     }
