@@ -55,7 +55,7 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
     }
 
     private List<String> getTestCycle(String testType) {
-        if (testType.contains("+") || testType.contains("-")) {
+        if (testType.matches(".*?[+-].*?")) {
             return getFreeTypeTestCycle(testType);
         } else {
             return getTestCycleFromProperty(testType);
