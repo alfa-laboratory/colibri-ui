@@ -27,7 +27,7 @@ public class AndroidByFactoryTests {
         By foundElement = byFactory.byElement(element);
 
         assertEquals("Результат работы AndroidByFactory по id некорректен",
-                By.xpath(format("//*[@resource-id='%s']", formatResourceId(element))),
+                By.id(formatResourceId(element)),
                 foundElement);
     }
 

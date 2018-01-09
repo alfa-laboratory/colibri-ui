@@ -1,7 +1,7 @@
 package ru.colibri.ui.settings.android;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.apache.http.util.TextUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,7 +48,7 @@ public class AndroidFinder extends AbsFinder<AndroidDriver> {
     public void scrollTo(IElement targetListName, IElement toElementName) {
         //TODO add support content-desc
         String uiAutomatorString;
-        if (TextUtils.isEmpty(toElementName.getId())) {
+        if (StringUtils.isEmpty(toElementName.getId())) {
             uiAutomatorString = byFactory.scrollToUiAutomatorString(targetListName.getId(), toElementName.getText());
         } else {
             uiAutomatorString = byFactory.scrollToUiAutomatorStringId(targetListName.getId(), toElementName.getId());
