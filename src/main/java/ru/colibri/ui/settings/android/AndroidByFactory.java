@@ -1,5 +1,6 @@
 package ru.colibri.ui.settings.android;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.util.TextUtils;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,11 @@ public class AndroidByFactory extends ByFactory {
 
     @Override
     public By byElement(IElement element) {
-        return By.xpath(createSearchXpath(element));
+        if (StringUtils.isEmpty(element.getId())) {
+            return By.xpath(createSearchXpath(element));
+        } else {
+            return byId(createFullElementId(element.getId()));
+        }
     }
 
     public String scrollToUiAutomatorString(String listElementID, String toElementText) {
