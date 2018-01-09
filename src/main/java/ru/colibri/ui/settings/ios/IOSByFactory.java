@@ -1,7 +1,7 @@
 package ru.colibri.ui.settings.ios;
 
 import io.appium.java_client.MobileBy;
-import org.apache.http.util.TextUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.springframework.stereotype.Component;
 import ru.colibri.ui.core.fields.IElement;
@@ -29,11 +29,11 @@ public class IOSByFactory extends ByFactory {
 
     @Override
     public By byElement(IElement element) {
-        if (!TextUtils.isEmpty(element.getNSPredicate())) {
+        if (!StringUtils.isEmpty(element.getNSPredicate())) {
             return byIOSNSPredicate(element.getNSPredicate());
         }
-        if (TextUtils.isEmpty(element.getXpath())) {
-            if (TextUtils.isEmpty(element.getId())) {
+        if (StringUtils.isEmpty(element.getXpath())) {
+            if (StringUtils.isEmpty(element.getId())) {
                 return byNameOrValueOrLabel(element.getText());
             } else {
                 return byId(element.getId());
@@ -48,10 +48,10 @@ public class IOSByFactory extends ByFactory {
     }
 
     private String createSearchXpath(IElement element) {
-        if (!TextUtils.isEmpty(element.getXpath())) {
+        if (!StringUtils.isEmpty(element.getXpath())) {
             return element.getXpath();
         } else {
-            if (!TextUtils.isEmpty(element.getId())) {
+            if (!StringUtils.isEmpty(element.getId())) {
                 return createXPathByNameOrValueOrLabel(element.getId());
             } else {
                 return createXPathByNameOrValueOrLabel(element.getText());

@@ -1,7 +1,6 @@
 package ru.colibri.ui.settings.android;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.util.TextUtils;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,13 +24,13 @@ public class AndroidByFactory extends ByFactory {
     private String createSearchXpath(IElement element) {
         StringBuilder searchPattern = new StringBuilder()
                 .append("//*[");
-        if (!TextUtils.isEmpty(element.getId())) {
+        if (!StringUtils.isEmpty(element.getId())) {
             searchPattern.append("@resource-id='").append(createFullElementId(element.getId())).append("']");
-        } else if (!TextUtils.isEmpty(element.getContentDesc())) {
+        } else if (!StringUtils.isEmpty(element.getContentDesc())) {
             searchPattern.append("@content-desc='").append(element.getContentDesc()).append("']");
-        } else if (!TextUtils.isEmpty(element.getText())) {
+        } else if (!StringUtils.isEmpty(element.getText())) {
             searchPattern.append("@text='").append(element.getText()).append("']");
-        } else if (!TextUtils.isEmpty(element.getXpath())) {
+        } else if (!StringUtils.isEmpty(element.getXpath())) {
             return element.getXpath();
         } else {
             throw new RuntimeException("No id for element: " + element);
