@@ -1,6 +1,6 @@
 package ru.colibri.ui.settings.general;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.colibri.ui.core.names.ColibriStartFlags;
@@ -11,13 +11,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.regex.Pattern.compile;
 
-@Slf4j
+@Log
 @Service
 public class PropertyUtils {
     private final static Pattern propertyPattern = compile("(#)([A-Za-z0-9_-]+?)(#)");
@@ -46,7 +48,7 @@ public class PropertyUtils {
         String propertyKey = matcher.group(2);
         String propertyValue = userProfile.get(propertyKey);
         if (propertyValue == null) {
-            log.error("Couldn't find property {} for user {}", propertyKey, System.getenv().getOrDefault(ColibriStartFlags.USER, "user not defined"));
+            log.log(Level.SEVERE, format("Couldn't find property %s for user %s", propertyKey, System.getenv().getOrDefault(ColibriStartFlags.USER, "user not defined")));
             return text;
         }
         return matcher.replaceAll(propertyValue);
