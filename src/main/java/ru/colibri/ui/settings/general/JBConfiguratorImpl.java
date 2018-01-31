@@ -1,6 +1,8 @@
 package ru.colibri.ui.settings.general;
 
+import com.epam.reportportal.jbehave.ReportPortalViewGenerator;
 import org.jbehave.core.configuration.Configuration;
+import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.embedder.EmbedderControls;
 import org.jbehave.core.embedder.StoryControls;
 import org.jbehave.core.reporters.Format;
@@ -43,4 +45,17 @@ public class JBConfiguratorImpl implements IJBConfigurator {
         configuration.parameterConverters().addConverters(new ParameterConverters.EnumConverter());
         return configuration;
     }
+
+    @Override
+    public Configuration createConfig(Format... formats) {
+        Configuration configuration = new MostUsefulConfiguration();
+        configuration.useStoryReporterBuilder(
+                new StoryReporterBuilder()
+                        .withFormats(formats))
+                .useViewGenerator(new ReportPortalViewGenerator());
+        configuration.useStoryControls(new StoryControls().doResetStateBeforeScenario(true));
+        configuration.parameterConverters().addConverters(new ParameterConverters.EnumConverter());
+        return configuration;
+    }
+
 }
