@@ -8,18 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyAllureFormat extends Format {
+public class ReportPortalFormat extends Format {
 
     @Autowired
-    private AllureReporter allureReporter;
+    private ReportPortalStoryReporterDecorator reportPortalReporter;
 
-    public MyAllureFormat() {
-        super("ALLURE");
+    public ReportPortalFormat() {
+        super("REPORT PORTAL");
     }
 
     @Override
     public StoryReporter createStoryReporter(FilePrintStreamFactory factory, StoryReporterBuilder storyReporterBuilder) {
-        return allureReporter;
+        return reportPortalReporter;
     }
 
 }

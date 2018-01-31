@@ -5,7 +5,6 @@ import com.epam.reportportal.service.ReportPortal;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.OutputType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -15,12 +14,11 @@ import java.util.Calendar;
 public class ReportPortalStoryReporterDecorator extends ReportPortalStoryReporter {
 
     @Autowired
-    private ApplicationContext applicationContext;
-
+    private AppiumDriver driver;
 
     @Override
     public void failed(String step, Throwable cause) {
-        File file = applicationContext.getBean(AppiumDriver.class).getScreenshotAs(OutputType.FILE);
+        File file = driver.getScreenshotAs(OutputType.FILE);
         ReportPortal.emitLog("", "INFO",
                 Calendar.getInstance().getTime(),
                 file);
