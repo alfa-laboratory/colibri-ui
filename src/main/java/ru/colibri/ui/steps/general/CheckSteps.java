@@ -79,7 +79,7 @@ public class CheckSteps extends AbsSteps {
         assertFalse("Найден элемент на странице", checkElementExist(fieldName));
     }
 
-    private boolean checkElementExist(String fieldName) {
+    public boolean checkElementExist(String fieldName) {
         IElement element = getCurrentPage().getElementByName(fieldName);
         decreaseImplicitlyWait();
         int sizeOfList = finder.findWebElements(element).size();
