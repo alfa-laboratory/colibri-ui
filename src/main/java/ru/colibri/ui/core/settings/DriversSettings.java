@@ -26,4 +26,5 @@ public class DriversSettings {
     private String pagesPath;
     private String UDID;
     private int wdaLocalPort;
+    private int systemPort;
 }
