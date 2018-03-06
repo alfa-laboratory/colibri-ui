@@ -13,11 +13,11 @@ public abstract class BaseAndroidDriverConfigurator extends AbsDriverConfigurato
 
     public AppiumDriver createDriver(DriversSettings driversSettings, AppSettings appSettings) {
         DesiredCapabilities capabilities = createCapabilities(driversSettings);
-        additionalAndroidCapabilities(appSettings, capabilities);
+        additionalAndroidCapabilities(appSettings, capabilities, driversSettings);
         AndroidDriver androidDriver = new AndroidDriver(getRemoteAddress(driversSettings.getAppiumRemoteUrl()), capabilities);
         androidDriver.manage().timeouts().implicitlyWait(driversSettings.getImplicitlyWaitInSeconds(), TimeUnit.SECONDS);
         return androidDriver;
     }
 
-    protected abstract void additionalAndroidCapabilities(AppSettings appSettings, DesiredCapabilities capabilities);
+    protected abstract void additionalAndroidCapabilities(AppSettings appSettings, DesiredCapabilities capabilities, DriversSettings driversSettings);
 }
