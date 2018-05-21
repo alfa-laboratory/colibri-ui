@@ -35,4 +35,10 @@ public class IOSPageSteps extends AbsSteps {
         String text = propertyUtils.injectProperties(textOrKeyword);
         driver.findElement(MobileBy.iOSNsPredicateString(format("name contains '%1$s' or value contains '%1$s' or label contains '%1$s'", text)));
     }
+
+    @Step
+    @Then("на экране есть надпись \"$textOrKeyword\" без учета регистра")
+    public void checkTextCaseInsensitive(@Named("$textOrKeyword") String textOrKeyword) {
+        checkText(textOrKeyword.toLowerCase());
+    }
 }

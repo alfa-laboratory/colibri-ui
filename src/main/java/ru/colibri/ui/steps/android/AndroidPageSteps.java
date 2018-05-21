@@ -23,4 +23,10 @@ public class AndroidPageSteps extends AbsSteps {
         String text = propertyUtils.injectProperties(textOrKeyword);
         driver.findElement(By.xpath(format("//*[contains(@name, '%1$s') or contains(@text,'%1$s') or contains(@content-desc,'%1$s')]", text)));
     }
+
+    @Step
+    @Then("на экране есть надпись \"$textOrKeyword\" без учета регистра")
+    public void checkTextCaseInsensitive(@Named("$textOrKeyword") String textOrKeyword) {
+        checkText(textOrKeyword.toLowerCase());
+    }
 }
