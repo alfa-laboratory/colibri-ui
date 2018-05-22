@@ -33,7 +33,6 @@ repositories {
     maven {
         url  "http://dl.bintray.com/alfa-laboratory/maven-releases"
     }
-    maven { url 'https://jitpack.io' }
     mavenLocal()
     jcenter()
     mavenCentral()
