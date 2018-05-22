@@ -14,8 +14,8 @@ import static java.lang.String.format;
 @Component
 public class AndroidPageSteps extends AbsSteps {
 
-    private static final String lowerCase = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    private static final String upperCase = lowerCase.toUpperCase();
+    private static final String lowerCaseABC = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final String upperCaseABC = lowerCaseABC.toUpperCase();
 
     @Autowired
     private PropertyUtils propertyUtils;
@@ -31,6 +31,6 @@ public class AndroidPageSteps extends AbsSteps {
     @Then("на экране есть надпись \"$textOrKeyword\" без учета регистра")
     public void checkTextCaseInsensitive(@Named("$textOrKeyword") String textOrKeyword) {
         String text = propertyUtils.injectProperties(textOrKeyword);
-        driver.findElement(By.xpath(format("//*[translate(@text,'%1$s','%2$s')='%3$s']", upperCase, lowerCase, text.toLowerCase())));
+        driver.findElement(By.xpath(format("//*[translate(@text,'%1$s','%2$s')='%3$s']", upperCaseABC, lowerCaseABC, text.toLowerCase())));
     }
 }
