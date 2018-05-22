@@ -31,6 +31,8 @@ public class AndroidPageSteps extends AbsSteps {
     @Then("на экране есть надпись \"$textOrKeyword\" без учета регистра")
     public void checkTextCaseInsensitive(@Named("$textOrKeyword") String textOrKeyword) {
         String text = propertyUtils.injectProperties(textOrKeyword);
+        /* Функция "translate" при поиске заменяет буквы в верхнем регистре на буквы в нижнем регистре
+         и сравнивает найденное значение с указанным при поиске */
         driver.findElement(By.xpath(format("//*[translate(@text,'%1$s','%2$s')='%3$s']", UPPER_CASE_ABC, LOWER_CASE_ABC, text.toLowerCase())));
     }
 }
