@@ -40,8 +40,8 @@ repositories {
 
 dependencies {
     compile "io.appium:java-client:5.0.4"
-    compile "org.jbehave:jbehave-core:4.1.1"
-    compile "org.jbehave:jbehave-spring:4.1.1"
+    compile "org.jbehave:jbehave-core:4.3.3"
+    compile "org.jbehave:jbehave-spring:4.3.3"
     compile "org.projectlombok:lombok:1.16.18"
     compile "com.opencsv:opencsv:3.9"
     compile "ru.yandex.qatools.allure:allure-junit-adaptor:1.5.4"
@@ -49,7 +49,6 @@ dependencies {
     testCompile "org.springframework:spring-test:4.3.8.RELEASE"
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-core:2.+"
-    testCompile "de.codecentric:jbehave-junit-runner:1.2.0"
 }
 
 loadSettings()
