@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BaseAndroidDriverConfigurator extends AbsDriverConfigurator {
 
+    @Override
     public AppiumDriver createDriver(DriversSettings driversSettings, AppSettings appSettings) {
         DesiredCapabilities capabilities = createCapabilities(driversSettings);
         additionalAndroidCapabilities(appSettings, capabilities, driversSettings);

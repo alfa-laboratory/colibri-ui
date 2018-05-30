@@ -7,6 +7,10 @@ import ru.colibri.ui.core.steps.AbsSteps;
 
 import java.time.Duration;
 
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.ElementOption.point;
+
 @Component
 public class SwipeSteps extends AbsSteps {
 
@@ -14,9 +18,9 @@ public class SwipeSteps extends AbsSteps {
     protected void verticalSwipe(String elementName, int swipeLength, int duration) {
         WebElement webElement = getWebElementByName(elementName);
         new TouchAction(driver)
-                .press(webElement)
-                .waitAction(Duration.ofSeconds(duration))
-                .moveTo(0, swipeLength)
+                .press(element(webElement))
+                .waitAction(waitOptions(Duration.ofSeconds(duration)))
+                .moveTo(point(0, swipeLength))
                 .release().perform();
 
     }
@@ -24,9 +28,9 @@ public class SwipeSteps extends AbsSteps {
     protected void horizontalSwipe(String elementName, int swipeLength, int duration) {
         WebElement webElement = getWebElementByName(elementName);
         new TouchAction(driver)
-                .press(webElement)
-                .waitAction(Duration.ofSeconds(duration))
-                .moveTo(swipeLength, 0)
+                .press(element(webElement))
+                .waitAction(waitOptions(Duration.ofSeconds(duration)))
+                .moveTo(point(swipeLength, 0))
                 .release().perform();
     }
 

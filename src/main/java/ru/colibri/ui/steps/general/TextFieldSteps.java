@@ -5,7 +5,6 @@ import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Keyboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.colibri.ui.core.steps.AbsSteps;
@@ -40,16 +39,16 @@ public class TextFieldSteps extends AbsSteps {
     @When("ввод текста с клавиатуры \"$textOrKeyword\"")
     public void sendText(@Named("$textOrKeyword") String textOrKeyword) {
         String text = propertyUtils.injectProperties(textOrKeyword);
-        driver.getKeyboard().sendKeys(text);
+        WebElement activeElement = driver.switchTo().activeElement();
+        activeElement.sendKeys(text);
     }
 
     @When("очистить \"$fieldName\"")
     public void clearField(@Named("$fieldName") String fieldName) {
         WebElement webElement = getWebElementByName(fieldName);
         webElement.clear();
-        Keyboard keyboard = driver.getKeyboard();
         for (int i = webElement.getText().length(); i > 0; i--) {
-            keyboard.sendKeys(Keys.BACK_SPACE);
+            webElement.sendKeys(Keys.BACK_SPACE);
         }
     }
 }
