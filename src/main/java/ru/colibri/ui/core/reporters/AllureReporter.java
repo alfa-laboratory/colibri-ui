@@ -3,6 +3,7 @@ package ru.colibri.ui.core.reporters;
 import io.appium.java_client.AppiumDriver;
 import org.apache.commons.lang3.StringUtils;
 import org.jbehave.core.model.*;
+import org.jbehave.core.reporters.NullStoryReporter;
 import org.jbehave.core.reporters.StoryReporter;
 import org.openqa.selenium.OutputType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,14 @@ import java.util.Map;
 import java.util.UUID;
 
 @Component
-public class AllureReporter extends AllureRunListener implements StoryReporter {
+public class AllureReporter extends NullStoryReporter {
     private final Map<String, String> suites = new HashMap<>();
     @Autowired
     private ApplicationContext applicationContext;
     private Allure allure = Allure.LIFECYCLE;
     private String uid;
 
+    @Override
     public void beforeStory(Story story, boolean givenStory) {
         uid = generateSuiteUid(story);
         String path = story.getPath();
@@ -37,36 +39,38 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
         allure.fire(event);
     }
 
+    @Override
     public void afterStory(boolean givenStory) {
         allure.fire(new TestSuiteFinishedEvent(uid));
     }
 
-    public void beforeScenario(String scenarioTitle) {
-        allure.fire(new TestCaseStartedEvent(uid, scenarioTitle));
+    @Override
+    public void beforeScenario(Scenario scenario) {
+        allure.fire(new TestCaseStartedEvent(uid, scenario.getTitle()));
         allure.fire(new ClearStepStorageEvent());
     }
 
+    @Override
     public void beforeStep(String step) {
         allure.fire(new StepStartedEvent(step).withTitle(step));
     }
 
+    @Override
     public void successful(String step) {
         allure.fire(new StepFinishedEvent());
     }
 
+    @Override
     public void ignorable(String step) {
         allure.fire(new StepCanceledEvent());
     }
 
     @Override
-    public void comment(String step) {
-
-    }
-
     public void notPerformed(String step) {
         allure.fire(new StepCanceledEvent());
     }
 
+    @Override
     public void failed(String step, Throwable cause) {
         takeScreenshot(step);
         allure.fire(new StepFinishedEvent());
@@ -75,96 +79,17 @@ public class AllureReporter extends AllureRunListener implements StoryReporter {
 
     }
 
-
+    @Override
     public void pending(String step) {
         allure.fire(new StepCanceledEvent());
         allure.fire(new TestCasePendingEvent().withMessage("PENDING"));
     }
 
-
+    @Override
     public void afterScenario() {
         allure.fire(new TestCaseFinishedEvent());
     }
 
-
-    public void storyNotAllowed(Story story, String filter) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-
-    public void storyCancelled(Story story, StoryDuration storyDuration) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void narrative(Narrative narrative) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void lifecyle(Lifecycle lifecycle) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void scenarioNotAllowed(Scenario scenario, String filter) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void scenarioMeta(Meta meta) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void givenStories(GivenStories givenStories) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void givenStories(List<String> storyPaths) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void beforeExamples(List<String> steps, ExamplesTable table) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void example(Map<String, String> tableRow) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void afterExamples() {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void failedOutcomes(String step, OutcomesTable table) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void restarted(String step, Throwable cause) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void restartedStory(Story story, Throwable cause) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void dryRun() {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
-
-    @Override
-    public void pendingMethods(List<String> methods) {
-//        throw new NotImplementedException("Method not use. Allure doesn't support this");
-    }
 
     /**
      * Generate suite uid.
