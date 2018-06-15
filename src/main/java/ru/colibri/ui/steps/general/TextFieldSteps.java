@@ -1,8 +1,10 @@
 package ru.colibri.ui.steps.general;
 
 import io.appium.java_client.MobileElement;
+import lombok.extern.java.Log;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,15 @@ import ru.colibri.ui.core.steps.AbsSteps;
 import ru.colibri.ui.settings.general.PropertyUtils;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.util.List;
+import java.util.logging.Level;
+
+@Log
 @Component
 public class TextFieldSteps extends AbsSteps {
+
+    private static final String editTextXpath = "//*[contains(@class,'EditText')]";
+
     @Autowired
     private PropertyUtils propertyUtils;
 
@@ -20,10 +29,10 @@ public class TextFieldSteps extends AbsSteps {
     @When("поле \"$field\" заполняется значением \"$valueOrKeyword\"")
     public void sendKeys(@Named("$field") String field, @Named("$valueOrKeyword") String valueOrKeyword) {
         WebElement webElement = getWebElementByName(field);
+        WebElement textElement = webElement.findElement(By.xpath(editTextXpath));
         String value = propertyUtils.injectProperties(valueOrKeyword);
-        ((MobileElement) webElement).setValue(value);
+        ((MobileElement) textElement).setValue(value);
     }
-
 
     @Step
     @When("(Optional) поле \"$field\" заполняется значением \"$valueOrKeyword\"")
@@ -39,8 +48,18 @@ public class TextFieldSteps extends AbsSteps {
     @When("ввод текста с клавиатуры \"$textOrKeyword\"")
     public void sendText(@Named("$textOrKeyword") String textOrKeyword) {
         String text = propertyUtils.injectProperties(textOrKeyword);
-        WebElement activeElement = driver.switchTo().activeElement();
-        activeElement.sendKeys(text);
+        List elements = driver.findElements(By.xpath(editTextXpath));
+        WebElement activeElement = null;
+        boolean isFocused = false;
+        for (int i = 0; !isFocused && i < elements.size(); i++) {
+            activeElement = (WebElement) elements.get(i);
+            isFocused = Boolean.valueOf(activeElement.getAttribute("focused"));
+        }
+        if (isFocused) {
+            activeElement.sendKeys(text);
+        } else {
+            log.log(Level.SEVERE, "Нет активных полей ввода!");
+        }
     }
 
     @When("очистить \"$fieldName\"")
