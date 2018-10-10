@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.colibri.ui.core.steps.AbsSteps;
 import ru.colibri.ui.settings.general.PropertyUtils;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -34,15 +35,17 @@ public class TextFieldSteps extends AbsSteps {
         }
     }
 
-    protected void sendKeys(String field, String valueOrKeyword) {
+    @Step
+    @When("поле \"$field\" заполняется значением \"$valueOrKeyword\"")
+    public void sendKeys(@Named("$field") String field, @Named("$valueOrKeyword") String valueOrKeyword) {
         WebElement webElement = getWebElementByName(field);
-//        WebElement textElement = webElement.findElement(By.xpath(editTextXpath));
         String value = propertyUtils.injectProperties(valueOrKeyword);
-//        ((MobileElement) textElement).setValue(value);
         webElement.sendKeys(value);
     }
 
-    protected void optionalSendKeys(String field, String valueOrKeyword) {
+    @Step
+    @When("(Optional) поле \"$field\" заполняется значением \"$valueOrKeyword\"")
+    public void optionalSendKeys(@Named("$field") String field, @Named("$valueOrKeyword") String valueOrKeyword) {
         try {
             sendKeys(field, valueOrKeyword);
         } catch (Exception ignored) {

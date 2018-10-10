@@ -15,18 +15,6 @@ public class AndroidTextFieldSteps extends TextFieldSteps {
     private static final By editTextLocator = By.xpath("//*[contains(@class,'EditText')]");
 
     @Step
-    @When("поле \"$field\" заполняется значением \"$valueOrKeyword\"")
-    public void fillByValue(@Named("$field") String field, @Named("$valueOrKeyword") String valueOrKeyword) {
-        sendKeys(field, valueOrKeyword);
-    }
-
-    @Step
-    @When("(Optional) поле \"$field\" заполняется значением \"$valueOrKeyword\"")
-    public void optionalFillByValue(@Named("$field") String field, @Named("$valueOrKeyword") String valueOrKeyword) {
-        optionalSendKeys(field, valueOrKeyword);
-    }
-
-    @Step
     @When("ввод текста с клавиатуры \"$textOrKeyword\"")
     public void sendKeyboardText(@Named("$textOrKeyword") String textOrKeyword) {
         sendText(textOrKeyword, editTextLocator);
