@@ -1,6 +1,5 @@
 package ru.colibri.ui.steps.android;
 
-import lombok.extern.java.Log;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 import ru.colibri.ui.steps.general.TextFieldSteps;
 import ru.yandex.qatools.allure.annotations.Step;
 
-@Log
 @Component
 public class AndroidTextFieldSteps extends TextFieldSteps {
 

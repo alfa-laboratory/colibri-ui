@@ -1,7 +1,6 @@
 package ru.colibri.ui.steps.ios;
 
 import io.appium.java_client.MobileBy;
-import lombok.extern.java.Log;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
@@ -11,7 +10,6 @@ import ru.colibri.ui.settings.general.PropertyUtils;
 import ru.colibri.ui.steps.general.TextFieldSteps;
 import ru.yandex.qatools.allure.annotations.Step;
 
-@Log
 @Component
 public class IOSTextFieldSteps extends TextFieldSteps {
 
