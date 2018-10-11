@@ -19,6 +19,17 @@ public class IOSButtonSteps extends AbsSteps {
     }
 
     @Step
+    @When("(Optional) нажата кнопка Готово")
+    public void clickOnReadyButtonOptional() {
+        decreaseImplicitlyWait();
+        try {
+            clickOnReadyButton();
+        } catch (Exception ignored) {
+        }
+        increaseImplicitlyWait();
+    }
+
+    @Step
     @When("нажата кнопка Отмена")
     public void clickOnCancelButton() {
         driver.findElement(MobileBy.iOSNsPredicateString(cancelButton)).click();

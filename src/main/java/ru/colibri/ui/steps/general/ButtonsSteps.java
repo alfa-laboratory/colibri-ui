@@ -12,6 +12,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 
+import static io.appium.java_client.touch.offset.ElementOption.element;
+
 @Component
 public class ButtonsSteps extends AbsSteps {
 
@@ -35,7 +37,7 @@ public class ButtonsSteps extends AbsSteps {
     @Step
     @When("выполнен лонгтап на \"$button\"")
     public void buttonLongtap(@Named("$button") String button) {
-        new TouchAction(driver).longPress(getWebElementByName(button)).release().perform();
+        new TouchAction(driver).longPress(element(getWebElementByName(button))).release().perform();
     }
 
     @Step
@@ -44,6 +46,6 @@ public class ButtonsSteps extends AbsSteps {
         IElement element = getCurrentPage().getElementByName(fieldName);
         List<WebElement> elementsFound = finder.findWebElements(element);
         WebElement firstElement = elementsFound.get(index);
-        new TouchAction(driver).longPress(firstElement).release().perform();
+        new TouchAction(driver).longPress(element(firstElement)).release().perform();
     }
 }

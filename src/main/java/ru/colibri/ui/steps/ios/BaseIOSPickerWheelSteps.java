@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import ru.colibri.ui.core.steps.AbsSteps;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import static io.appium.java_client.touch.offset.PointOption.point;
+
 @Component
 public class BaseIOSPickerWheelSteps extends AbsSteps {
 
@@ -42,7 +44,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
         int height = size.getHeight();
         Point target = new Point(center.getX(), center.getY() - (int) (height * stepToLast));
         TouchAction touchAction = new TouchAction(driver);
-        touchAction.press(target.getX(), target.getY()).release();
+        touchAction.press(point(target.getX(), target.getY())).release();
         touchAction.perform();
     }
 
@@ -55,7 +57,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
         int height = size.getHeight();
         Point target = new Point(center.getX(), center.getY() + (int) (height * stepToLast));
         TouchAction touchAction = new TouchAction(driver);
-        touchAction.press(target.getX(), target.getY()).release();
+        touchAction.press(point(target.getX(), target.getY())).release();
         touchAction.perform();
     }
 
@@ -74,7 +76,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
         Dimension size = pickerWheelElement.getSize();
         int height = size.getHeight();
         TouchAction touchAction = new TouchAction(driver);
-        touchAction.press(center.getX(), center.getY() + (int) (height * step)).release();
+        touchAction.press(point(center.getX(), center.getY() + (int) (height * step))).release();
         touchAction.perform();
     }
 
@@ -84,7 +86,7 @@ public class BaseIOSPickerWheelSteps extends AbsSteps {
         Dimension size = pickerWheelElement.getSize();
         int height = size.getHeight();
         TouchAction touchAction = new TouchAction(driver);
-        touchAction.press(center.getX(), center.getY() - (int) (height * step)).release();
+        touchAction.press(point(center.getX(), center.getY() - (int) (height * step))).release();
         touchAction.perform();
     }
 }
