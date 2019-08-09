@@ -27,4 +27,5 @@ public class DriversSettings {
     private String UDID;
     private int wdaLocalPort;
     private int systemPort;
+    private String platformVersion;
 }
