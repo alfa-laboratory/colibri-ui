@@ -37,7 +37,9 @@ public abstract class AbsSettingsLoader implements ISettingsLoader, Initializing
 
     protected void takeArtifact(String from, String to) {
         try {
+            log.log(Level.INFO, format("Loading artifact from: %s", from));
             copyURLToFile(new URL(from), new File(to));
+            log.log(Level.INFO, format("Loading artifact complete to: %s", to));
         } catch (IOException e) {
             log.log(Level.WARNING, "Error loading file.", e);
         }
