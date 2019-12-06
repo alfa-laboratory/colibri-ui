@@ -38,6 +38,10 @@ repositories {
     mavenCentral()
 }
 
+findbugs {
+   ignoreFailures = true
+}
+
 dependencies {
     compile "io.appium:java-client:7.1.0"
     compile "org.jbehave:jbehave-core:4.3.3"
