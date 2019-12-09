@@ -20,5 +20,14 @@ public class ListItemSteps extends AbsSteps {
         WebElement firstElement = elementsFound.get(index);
         firstElement.click();
     }
-
+    
+    @Step
+    @When("(Optional) выполнено нажатие на элемент \"$fieldName\" с индексом \"$index\"")
+    public void OptionalListItemClick(String fieldName, int index) {
+        try {
+            listItemClick(fieldName, index);
+        } catch (Exception ignored) {
+            System.out.println("Не нажато");
+        }
+    }
 }
